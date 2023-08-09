@@ -85,6 +85,7 @@ void initVncServer(int argc, char **argv) {
 	vncscr->desktopName = "LibreELEC";
 	vncscr->frameBuffer =(char *)vncbuf;
 	vncscr->port = VNC_PORT;
+	vncscr->ipv6port = VNC_PORT;
 	vncscr->kbdAddEvent = dokey;
 	vncscr->newClientHook = (rfbNewClientHookPtr)clientHook;
 	
