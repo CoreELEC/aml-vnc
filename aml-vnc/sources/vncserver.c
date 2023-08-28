@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 char VNC_PASSWORD[256] = "";
 int VNC_PORT = 5900;
+char VNC_DESKTOP_NAME[256] = "CoreELEC";
 
 unsigned int *vncbuf;
 
@@ -82,7 +83,7 @@ void initVncServer(int argc, char **argv) {
 	
 	assert(vncscr != NULL);
 	
-	vncscr->desktopName = "CoreELEC";
+	vncscr->desktopName = VNC_DESKTOP_NAME;
 	vncscr->frameBuffer =(char *)vncbuf;
 	vncscr->port = VNC_PORT;
 	vncscr->ipv6port = VNC_PORT;
@@ -96,7 +97,7 @@ void initVncServer(int argc, char **argv) {
 		vncscr->authPasswdData = passwords;
 		vncscr->passwordCheck = rfbCheckPasswordByList;
 	}
-	
+
 	vncscr->serverFormat.redShift = screenformat.redShift;
 	vncscr->serverFormat.greenShift = screenformat.greenShift;
 	vncscr->serverFormat.blueShift = screenformat.blueShift;
@@ -155,7 +156,8 @@ void printUsage(char **argv) {
 		"-f <device>\t- Framebuffer device\n"
 		"-h\t\t- Print this help\n"
 		"-p <password>\t- Password to access server\n"
-		"-R <host:port>\t- Host for reverse connection\n");
+		"-R <host:port>\t- Host for reverse connection\n"
+		"-d <name>\t- Desktop name\n");
 }
 
 int main(int argc, char **argv) {
@@ -172,7 +174,8 @@ int main(int argc, char **argv) {
 					break;
 				case 'p':
 					i++;
-					strcpy(VNC_PASSWORD,argv[i]);
+					strncpy(VNC_PASSWORD, argv[i], sizeof(VNC_PASSWORD) - 1);
+					VNC_PASSWORD[sizeof(VNC_PASSWORD) - 1] = 0;
 					break;
 				case 'f':
 					i++;
@@ -186,6 +189,11 @@ int main(int argc, char **argv) {
 					i++;
 					extractReverseHostPort(argv[i]);
 					break;
+				case 'd':
+					i++;
+					strncpy(VNC_DESKTOP_NAME, argv[i], sizeof(VNC_DESKTOP_NAME) - 1);
+					VNC_DESKTOP_NAME[sizeof(VNC_DESKTOP_NAME) - 1] = 0;
+					break;	
 			}
 		}
 		i++;

@@ -8,8 +8,10 @@
 
 oe_setup_addon service.aml-vnc
 
-if [ "$AML_VNC_AUTH" == "true" ] ; then
-	exec aml-vnc -P "$AML_VNC_PORT" -p "$AML_VNC_PWD"
+VNC_DESKTOP_NAME="$(hostname)"
+
+if [ "${AML_VNC_AUTH}" == "true" ] ; then
+  exec aml-vnc -P "${AML_VNC_PORT}" -d "${VNC_DESKTOP_NAME}" -p "${AML_VNC_PWD}"
 else
-	exec aml-vnc -P "$AML_VNC_PORT"
+  exec aml-vnc -P "${AML_VNC_PORT}" -d "${VNC_DESKTOP_NAME}"
 fi
