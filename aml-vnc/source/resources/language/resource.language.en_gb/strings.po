@@ -1,0 +1,22 @@
+# Kodi Media Center language file
+# Addon Name: AML VNC server
+# Addon id: service.aml-vnc
+# Addon Provider: Team CoreELEC
+msgid ""
+msgstr ""
+
+msgctxt "#1000"
+msgid "aml-vnc"
+msgstr ""
+
+msgctxt "#1010"
+msgid "Port"
+msgstr ""
+
+msgctxt "#1011"
+msgid "Use authentication"
+msgstr ""
+
+msgctxt "#1012"
+msgid "Password"
+msgstr ""
